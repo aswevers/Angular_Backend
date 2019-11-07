@@ -1,0 +1,16 @@
+C:\Users\amber\source\repos\AngularProject\AngularProject\bin\Debug\netcoreapp2.2\appsettings.Development.json
+C:\Users\amber\source\repos\AngularProject\AngularProject\bin\Debug\netcoreapp2.2\appsettings.json
+C:\Users\amber\source\repos\AngularProject\AngularProject\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
+C:\Users\amber\source\repos\AngularProject\AngularProject\bin\Debug\netcoreapp2.2\AngularProject.deps.json
+C:\Users\amber\source\repos\AngularProject\AngularProject\bin\Debug\netcoreapp2.2\AngularProject.runtimeconfig.json
+C:\Users\amber\source\repos\AngularProject\AngularProject\bin\Debug\netcoreapp2.2\AngularProject.runtimeconfig.dev.json
+C:\Users\amber\source\repos\AngularProject\AngularProject\bin\Debug\netcoreapp2.2\AngularProject.dll
+C:\Users\amber\source\repos\AngularProject\AngularProject\obj\Debug\netcoreapp2.2\AngularProject.csprojAssemblyReference.cache
+C:\Users\amber\source\repos\AngularProject\AngularProject\obj\Debug\netcoreapp2.2\AngularProject.RazorAssemblyInfo.cache
+C:\Users\amber\source\repos\AngularProject\AngularProject\obj\Debug\netcoreapp2.2\AngularProject.RazorAssemblyInfo.cs
+C:\Users\amber\source\repos\AngularProject\AngularProject\obj\Debug\netcoreapp2.2\AngularProject.AssemblyInfoInputs.cache
+C:\Users\amber\source\repos\AngularProject\AngularProject\obj\Debug\netcoreapp2.2\AngularProject.AssemblyInfo.cs
+C:\Users\amber\source\repos\AngularProject\AngularProject\obj\Debug\netcoreapp2.2\AngularProject.RazorTargetAssemblyInfo.cache
+C:\Users\amber\source\repos\AngularProject\AngularProject\bin\Debug\netcoreapp2.2\AngularProject.pdb
+C:\Users\amber\source\repos\AngularProject\AngularProject\obj\Debug\netcoreapp2.2\AngularProject.dll
+C:\Users\amber\source\repos\AngularProject\AngularProject\obj\Debug\netcoreapp2.2\AngularProject.pdb
