@@ -27,7 +27,7 @@ namespace AngularProject.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Stem>>> GetStemmen()
         {
-            return await _context.Stemmen.Include(s=> s.Keuze).Include(s => s.Gebruiker).ToListAsync();
+            return await _context.Stemmen.Include(s=> s.Keuze).Include(s => s.Gebruiker).OrderBy(s=>s.Keuze.Naam).ToListAsync();
         }
 
         // GET: api/Stem/5
@@ -51,7 +51,7 @@ namespace AngularProject.Controllers
         [Route("getStemmenByPollId/{pollId}")]
         public async Task<ActionResult<IEnumerable<Stem>>> GetStemmenByPollId(long pollId)
         {
-            var stemmen = await _context.Stemmen.Include(s => s.Keuze).Include(s => s.Gebruiker).Where(s => s.Keuze.PollId == pollId).ToListAsync();
+            var stemmen = await _context.Stemmen.Include(s => s.Keuze).Include(s => s.Gebruiker).Where(s => s.Keuze.PollId == pollId).OrderBy(s => s.Keuze.Naam).ToListAsync();
 
             if (stemmen == null)
             {
@@ -119,6 +119,29 @@ namespace AngularProject.Controllers
 
             return stem;
         }
+
+        [Authorize]
+        [HttpDelete]
+        [Route("deleteStemWhereKeuzeId/{keuzeId}")]
+
+        public async Task<ActionResult<IEnumerable<Stem>>> DeleteStemWhereKeuzeId(long keuzeId)
+        {
+            var stemmen = _context.Stemmen.Where(s => s.KeuzeId == keuzeId).ToList();
+            if (stemmen == null)
+            {
+                return NotFound();
+            }
+
+            foreach(Stem stem in stemmen)
+            {
+                _context.Stemmen.Remove(stem);
+            };
+
+            await _context.SaveChangesAsync();
+
+            return stemmen; 
+        }
+
 
         private bool StemExists(long id)
         {

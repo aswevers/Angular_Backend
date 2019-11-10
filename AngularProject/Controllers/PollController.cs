@@ -44,7 +44,7 @@ namespace AngularProject.Controllers
 
             return poll;
         }
-
+        
         // PUT: api/Poll/5
         [Authorize]
         [HttpPut("{id}")]

@@ -49,7 +49,7 @@ namespace AngularProject.Data
                 new Vriend{Gebruiker1=gebruikers.Single(g=>g.Email == "jos@hotmail.com"), Gebruiker2=gebruikers.Single(g=>g.Email == "jade@hotmail.com"), Geaccepteerd=true},
                 new Vriend{Gebruiker1=gebruikers.Single(g=>g.Email == "jos@hotmail.com"), Gebruiker2=gebruikers.Single(g=>g.Email == "jelle@hotmail.com"), Geaccepteerd=true},
                 new Vriend{Gebruiker1=gebruikers.Single(g=>g.Email == "jos@hotmail.com"), Gebruiker2=gebruikers.Single(g=>g.Email == "wesley@hotmail.com"), Geaccepteerd=true},
-                new Vriend{Gebruiker1=gebruikers.Single(g=>g.Email == "jos@hotmail.com"), Gebruiker2=gebruikers.Single(g=>g.Email == "linda@hotmail.com"), Geaccepteerd=true},
+                new Vriend{Gebruiker1=gebruikers.Single(g=>g.Email == "jos@hotmail.com"), Gebruiker2=gebruikers.Single(g=>g.Email == "linda@hotmail.com"), Geaccepteerd=false},
                 new Vriend{Gebruiker1=gebruikers.Single(g=>g.Email == "jos@hotmail.com"), Gebruiker2=gebruikers.Single(g=>g.Email == "kenzoo@hotmail.com"), Geaccepteerd=false},
             }.ForEach(v => context.Vrienden.Add(v));
 
@@ -93,9 +93,8 @@ namespace AngularProject.Data
                 new Stem{Gebruiker=gebruikers.Single(g=>g.Email == "wesley@hotmail.com"), Keuze=keuzes.Single(k => k.Naam=="Kebab")},
                 new Stem{Gebruiker=gebruikers.Single(g=>g.Email == "linda@hotmail.com"), Keuze=keuzes.Single(k => k.Naam=="Zelf koken")},
                 new Stem{Gebruiker=gebruikers.Single(g=>g.Email == "r0695641@student.thomasmore.be"), Keuze=keuzes.Single(k => k.Naam=="Poolen")},
-                new Stem{Gebruiker=gebruikers.Single(g=>g.Email == "jade@hotmail.com"), Keuze=keuzes.Single(k => k.Naam=="Poolen")},
+                new Stem{Gebruiker=gebruikers.Single(g=>g.Email == "jade@hotmail.com"), Keuze=keuzes.Single(k => k.Naam=="Drinken")},
                 new Stem{Gebruiker=gebruikers.Single(g=>g.Email == "bart@hotmail.com"), Keuze=keuzes.Single(k => k.Naam=="Film kijken")},
-                new Stem{Gebruiker=gebruikers.Single(g=>g.Email == "jos@hotmail.com"), Keuze=keuzes.Single(k => k.Naam=="Drinken")},
             }.ForEach(s => context.Stemmen.Add(s));
 
             context.SaveChanges();

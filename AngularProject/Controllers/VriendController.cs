@@ -30,6 +30,16 @@ namespace AngularProject.Controllers
             return await _context.Vrienden.Include(v => v.Gebruiker1).Include(v => v.Gebruiker2).ToListAsync();
         }
 
+        [Authorize]
+        [HttpGet]
+        [Route("getPendingFriendRequests/{gebruikerId}")]
+        public async Task<ActionResult<IEnumerable<Vriend>>> GetPendingFriendRequests(long gebruikerId)
+        {
+            return await _context.Vrienden.Include(v => v.Gebruiker1).Include(v => v.Gebruiker2)
+                .Where(v=>v.Gebruiker1.GebruikerId == gebruikerId || v.Gebruiker2.GebruikerId == gebruikerId)
+                .Where(v => v.Geaccepteerd == false).ToListAsync();
+        }
+
         // GET: api/Vriend/5
         [Authorize]
         [HttpGet("{id}")]
