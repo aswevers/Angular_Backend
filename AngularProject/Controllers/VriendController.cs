@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AngularProject.Data;
 using AngularProject.Models;
 using Microsoft.AspNetCore.Authorization;
+using AngularProject.Services;
 
 namespace AngularProject.Controllers
 {
@@ -16,6 +17,7 @@ namespace AngularProject.Controllers
     public class VriendController : ControllerBase
     {
         private readonly ProjectContext _context;
+        private IGebruikerService gebruikerService;
 
         public VriendController(ProjectContext context)
         {
@@ -30,13 +32,24 @@ namespace AngularProject.Controllers
             return await _context.Vrienden.Include(v => v.Gebruiker1).Include(v => v.Gebruiker2).ToListAsync();
         }
 
+        // GET: api/Gebruiker
+        [Authorize]
+        [HttpGet]
+        [Route("getVriendenWhereGebruikerId/{id}")]
+        public async Task<ActionResult<IEnumerable<Vriend>>> GetVriendenWhereGebruikerId(long id)
+        {
+            return await _context.Vrienden.Include(v => v.Gebruiker1)
+                .Include(v => v.Gebruiker2)
+                .Where(g => g.Gebruiker1.GebruikerId == id || g.Gebruiker2.GebruikerId == id).ToListAsync();
+        }
+
         [Authorize]
         [HttpGet]
         [Route("getPendingFriendRequests/{gebruikerId}")]
         public async Task<ActionResult<IEnumerable<Vriend>>> GetPendingFriendRequests(long gebruikerId)
         {
             return await _context.Vrienden.Include(v => v.Gebruiker1).Include(v => v.Gebruiker2)
-                .Where(v=>v.Gebruiker1.GebruikerId == gebruikerId || v.Gebruiker2.GebruikerId == gebruikerId)
+                .Where(v=>v.Gebruiker1.GebruikerId == gebruikerId)
                 .Where(v => v.Geaccepteerd == false).ToListAsync();
         }
 
@@ -95,6 +108,19 @@ namespace AngularProject.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetVriend", new { id = vriend.Id }, vriend);
+        }
+
+        [HttpPost]
+        [Route("sendRequest")]
+        public async Task<ActionResult<Vriend>> SendRequest()
+        {
+            GebruikerController gebruikerController = new GebruikerController(gebruikerService, _context);
+            Vriend newVriend = new Vriend { Gebruiker1= gebruikerController.gebruikerReceiveRequest, Gebruiker2=gebruikerController.gebruikerSendRequest, Geaccepteerd=false };
+            _context.Vrienden.Add(newVriend);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetVriend", new { id = newVriend.Id }, newVriend);
+            
         }
 
         // DELETE: api/Vriend/5

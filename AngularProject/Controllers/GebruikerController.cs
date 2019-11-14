@@ -18,7 +18,8 @@ namespace AngularProject.Controllers
     {
         private readonly ProjectContext _context;
         private readonly IGebruikerService _gebruikerService;
-
+        public Gebruiker gebruikerSendRequest;
+        public Gebruiker gebruikerReceiveRequest;
         public GebruikerController(IGebruikerService gebruikerService, ProjectContext projectContext)
         {
             _context = projectContext;
@@ -45,7 +46,6 @@ namespace AngularProject.Controllers
             var userID = User.Claims.FirstOrDefault(c => c.Type == "GebruikerId").Value;
             return await _context.Gebruikers.ToListAsync();
         }
-
         // GET: api/Gebruiker/5
         [Authorize]
         [HttpGet("{id}")]
@@ -57,7 +57,23 @@ namespace AngularProject.Controllers
             {
                 return NotFound();
             }
+            gebruikerSendRequest = gebruiker;
+            return gebruiker;
+        }
 
+        // GET: api/Gebruiker/5
+        [Authorize]
+        [HttpGet]
+        [Route("getByEmail/{email}")]
+        public async Task<ActionResult<Gebruiker>> GetGebruikerByEmail(string email)
+        {
+            var gebruiker =  _context.Gebruikers.Where(g => g.Email == email).FirstOrDefault();
+
+            if (gebruiker == null)
+            {
+                return NotFound();
+            }
+            gebruikerSendRequest = gebruiker;
             return gebruiker;
         }
 
@@ -96,6 +112,17 @@ namespace AngularProject.Controllers
         [HttpPost]
         public async Task<ActionResult<Gebruiker>> PostGebruiker(Gebruiker gebruiker)
         {
+            _context.Gebruikers.Add(gebruiker);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetGebruiker", new { id = gebruiker.GebruikerId }, gebruiker);
+        }
+
+        [HttpGet]
+        [Route("newEmptyGebruiker")]
+        public async Task<ActionResult<Gebruiker>> NewEmptyGebruiker()
+        {
+            Gebruiker gebruiker = new Gebruiker { Email = "temp", Password="temp123" };
             _context.Gebruikers.Add(gebruiker);
             await _context.SaveChangesAsync();
 

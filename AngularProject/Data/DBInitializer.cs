@@ -14,6 +14,7 @@ namespace AngularProject.Data
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Poll ON");
+            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Gebruiker ON");
             context.SaveChanges();
 
             // Look for any albums.

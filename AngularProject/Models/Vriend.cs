@@ -7,6 +7,7 @@ namespace AngularProject.Models
 {
     public class Vriend
     {
+
         public long Id { get; set; }
         public long GebruikerId1 { get; set; }
         public long GebruikerId2 { get; set; }
