@@ -11,10 +11,7 @@ namespace AngularProject.Data
     {
         public static void Initialize(ProjectContext context)
         {
-            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
-            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Poll ON");
-            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Gebruiker ON");
             context.SaveChanges();
 
             // Look for any albums.
@@ -61,16 +58,16 @@ namespace AngularProject.Data
             };
 
             var pollGebruikers = new List<PollGebruiker> { 
-                new PollGebruiker { GebruikerId = gebruikers.Single(g => g.Email == "r0695641@student.thomasmore.be").GebruikerId, PollId = polls.Single(p => p.Titel == "Waar gaan we eten?").PollId, HeeftAangemaakt = true },
-                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "jos@hotmail.com"), Poll = polls.Single(p => p.Titel == "Waar gaan we eten?"), HeeftAangemaakt = false },
-                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "bart@hotmail.com"), Poll = polls.Single(p => p.Titel == "Waar gaan we eten?"), HeeftAangemaakt = false },
-                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "jelle@hotmail.com"), Poll = polls.Single(p => p.Titel == "Waar gaan we eten?"), HeeftAangemaakt = false },
-                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "wesley@hotmail.com"), Poll = polls.Single(p => p.Titel == "Waar gaan we eten?"), HeeftAangemaakt = false },
-                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "linda@hotmail.com"), Poll = polls.Single(p => p.Titel == "Waar gaan we eten?"), HeeftAangemaakt = false },
-                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "r0695641@student.thomasmore.be"), Poll = polls.Single(p => p.Titel == "Wat gaan we doen?"), HeeftAangemaakt = false },
-                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "jade@hotmail.com"), Poll = polls.Single(p => p.Titel == "Wat gaan we doen?"), HeeftAangemaakt = false },
-                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "bart@hotmail.com"), Poll = polls.Single(p => p.Titel == "Wat gaan we doen?"), HeeftAangemaakt = false },
-                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "jos@hotmail.com"), Poll = polls.Single(p => p.Titel == "Wat gaan we doen?"), HeeftAangemaakt = true }
+                new PollGebruiker { GebruikerId = gebruikers.Single(g => g.Email == "r0695641@student.thomasmore.be").GebruikerId, PollId = polls.Single(p => p.Titel == "Waar gaan we eten?").PollId, HeeftAangemaakt = true , HeeftGeaccepteerd=true},
+                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "jos@hotmail.com"), Poll = polls.Single(p => p.Titel == "Waar gaan we eten?"), HeeftAangemaakt = false, HeeftGeaccepteerd=false },
+                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "bart@hotmail.com"), Poll = polls.Single(p => p.Titel == "Waar gaan we eten?"), HeeftAangemaakt = false, HeeftGeaccepteerd=true },
+                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "jelle@hotmail.com"), Poll = polls.Single(p => p.Titel == "Waar gaan we eten?"), HeeftAangemaakt = false, HeeftGeaccepteerd=true },
+                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "wesley@hotmail.com"), Poll = polls.Single(p => p.Titel == "Waar gaan we eten?"), HeeftAangemaakt = false, HeeftGeaccepteerd=true },
+                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "linda@hotmail.com"), Poll = polls.Single(p => p.Titel == "Waar gaan we eten?"), HeeftAangemaakt = false, HeeftGeaccepteerd=true },
+                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "r0695641@student.thomasmore.be"), Poll = polls.Single(p => p.Titel == "Wat gaan we doen?"), HeeftAangemaakt = false, HeeftGeaccepteerd=true },
+                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "jade@hotmail.com"), Poll = polls.Single(p => p.Titel == "Wat gaan we doen?"), HeeftAangemaakt = false, HeeftGeaccepteerd=true },
+                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "bart@hotmail.com"), Poll = polls.Single(p => p.Titel == "Wat gaan we doen?"), HeeftAangemaakt = false, HeeftGeaccepteerd=true },
+                new PollGebruiker { Gebruiker = gebruikers.Single(g => g.Email == "jos@hotmail.com"), Poll = polls.Single(p => p.Titel == "Wat gaan we doen?"), HeeftAangemaakt = true, HeeftGeaccepteerd=true }
 
             };
 

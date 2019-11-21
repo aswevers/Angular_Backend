@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AngularProject.Data;
 using AngularProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AngularProject.Controllers
 {
@@ -26,6 +27,15 @@ namespace AngularProject.Controllers
         public async Task<ActionResult<IEnumerable<PollGebruiker>>> GetPollGebruikers()
         {
             return await _context.PollGebruikers.Include(p => p.Poll).Include(p=>p.Gebruiker).ToListAsync();
+        }
+
+        // GET: api/PollGebruiker
+        [Authorize]
+        [HttpGet]
+        [Route("getPGWhereGebruiker/{gebruikerId}")]
+        public async Task<ActionResult<IEnumerable<PollGebruiker>>> GetPollGebruikersWhereGebruikerId(long gebruikerId)
+        {
+            return await _context.PollGebruikers.Include(p => p.Poll).Include(p => p.Gebruiker).Where(p => p.GebruikerId == gebruikerId).ToListAsync();
         }
 
         // GET: api/PollGebruiker/5

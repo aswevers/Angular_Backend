@@ -11,6 +11,7 @@ namespace AngularProject.Models
         public long GebruikerId { get; set; }
         public long PollId { get; set; }
         public Boolean HeeftAangemaakt { get; set; }
+        public Boolean HeeftGeaccepteerd { get; set; }
 
         public Gebruiker Gebruiker { get; set; }
         public Poll Poll { get; set; }

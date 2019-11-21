@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace AngularProject.Models
 {
     public class Gebruiker
-    {
+    { 
         public long GebruikerId { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }

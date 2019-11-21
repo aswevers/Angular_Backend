@@ -9,6 +9,8 @@ using AngularProject.Data;
 using AngularProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using AngularProject.Services;
+using System.Net;
+using System.Net.Mail;
 
 namespace AngularProject.Controllers
 {
@@ -40,7 +42,7 @@ namespace AngularProject.Controllers
         {
             return await _context.Vrienden.Include(v => v.Gebruiker1)
                 .Include(v => v.Gebruiker2)
-                .Where(g => g.Gebruiker1.GebruikerId == id || g.Gebruiker2.GebruikerId == id).ToListAsync();
+                .Where(g => g.Gebruiker1.GebruikerId == id || g.Gebruiker2.GebruikerId == id).Where(g => g.Geaccepteerd == true).ToListAsync();
         }
 
         [Authorize]
@@ -104,6 +106,9 @@ namespace AngularProject.Controllers
         [HttpPost]
         public async Task<ActionResult<Vriend>> PostVriend(Vriend vriend)
         {
+            _context.Entry(vriend.Gebruiker1).State = EntityState.Modified;
+            _context.Entry(vriend.Gebruiker2).State = EntityState.Modified;
+
             _context.Vrienden.Add(vriend);
             await _context.SaveChangesAsync();
 
@@ -143,6 +148,40 @@ namespace AngularProject.Controllers
         private bool VriendExists(long id)
         {
             return _context.Vrienden.Any(e => e.Id == id);
+        }
+
+        [HttpGet]
+        [Route("sendMail/{email}")]
+        public void SendMail(string email)
+        {
+            MailAddress to = new MailAddress(email);
+            MailAddress from = new MailAddress("noreply@northpoll.com");
+
+            MailMessage message = new MailMessage(from, to);
+            message.Subject = "Uitnodiging voor een nieuwe poll!";
+            message.Body = "Hallo " + email + ", \n Je bent uitgenodigd voor een nieuwe poll op North Poll! \n\n" 
+                + "Om deel te kunnen nemen aan deze poll volg je de volgende stappen: \n\n"
+                + "1. Ga naar onze site \n2. Klik op 'Log In'\n Log je in met deze gegevens: \n  -Email: " + email + "\n  -Wachtwoord: temp123\n"
+                + "4. (Optioneel) Verander je wachtwoord door op 'Wachtwoord veranderen' te klikken\n"
+                + "5. Ga naar 'Vriendschapsverzoeken' en accepteer het vriendschapsverzoek van de vriend die je uitgenodigt heeft\n"
+                + "6. Ga naar 'Mijn polls' en stem op de poll!\n\n"
+                + "Veel pollplezier!";
+
+            SmtpClient client = new SmtpClient("smtp.mailtrap.io", 2525)
+            {
+                Credentials = new NetworkCredential("55c26ab6e5377c", "7de79150a5f454"),
+                EnableSsl = true
+            };
+            // code in brackets above needed if authentication required 
+
+            try
+            {
+                client.Send(message);
+            }
+            catch (SmtpException ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }

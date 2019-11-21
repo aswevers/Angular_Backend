@@ -71,10 +71,17 @@ namespace AngularProject.Controllers
 
             if (gebruiker == null)
             {
-                return NotFound();
+                Gebruiker gebruikertemp = new Gebruiker { Email = email, Password = "temp123" };
+                _context.Gebruikers.Add(gebruikertemp);
+                await _context.SaveChangesAsync();
+                gebruikerReceiveRequest = gebruikertemp;
+                return CreatedAtAction("GetGebruiker", new { id = gebruikertemp.GebruikerId }, gebruikertemp);
             }
-            gebruikerSendRequest = gebruiker;
-            return gebruiker;
+            else
+            {
+                gebruikerReceiveRequest = gebruiker;
+                return gebruiker;
+            }
         }
 
         // PUT: api/Gebruiker/5
@@ -118,16 +125,6 @@ namespace AngularProject.Controllers
             return CreatedAtAction("GetGebruiker", new { id = gebruiker.GebruikerId }, gebruiker);
         }
 
-        [HttpGet]
-        [Route("newEmptyGebruiker")]
-        public async Task<ActionResult<Gebruiker>> NewEmptyGebruiker()
-        {
-            Gebruiker gebruiker = new Gebruiker { Email = "temp", Password="temp123" };
-            _context.Gebruikers.Add(gebruiker);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetGebruiker", new { id = gebruiker.GebruikerId }, gebruiker);
-        }
 
         // DELETE: api/Gebruiker/5
         [Authorize]
