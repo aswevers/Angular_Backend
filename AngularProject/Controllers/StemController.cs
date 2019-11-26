@@ -46,6 +46,7 @@ namespace AngularProject.Controllers
         }
 
         // GET: api/Stem/5
+        // Haalt alle stemmen op waarbij de pollId van de keuze == pollId
         [Authorize]
         [HttpGet]
         [Route("getStemmenByPollId/{pollId}")]
@@ -120,10 +121,10 @@ namespace AngularProject.Controllers
             return stem;
         }
 
+        // Verwijdert stem waar keuzeId == keuzeId
         [Authorize]
         [HttpDelete]
         [Route("deleteStemWhereKeuzeId/{keuzeId}")]
-
         public async Task<ActionResult<IEnumerable<Stem>>> DeleteStemWhereKeuzeId(long keuzeId)
         {
             var stemmen = _context.Stemmen.Where(s => s.KeuzeId == keuzeId).ToList();

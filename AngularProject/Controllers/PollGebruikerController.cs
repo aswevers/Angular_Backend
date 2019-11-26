@@ -30,6 +30,7 @@ namespace AngularProject.Controllers
         }
 
         // GET: api/PollGebruiker
+        // Haalt alle pollGebruiker objecten op waar de gebruikerId == gebruikerId
         [Authorize]
         [HttpGet]
         [Route("getPGWhereGebruiker/{gebruikerId}")]
@@ -52,20 +53,6 @@ namespace AngularProject.Controllers
             return pollGebruiker;
         }
 
-        /*
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PollGebruiker>> GetPollGebruikerWhereGebruikerId(long gebruikerId)
-        {
-            var pollGebruiker = _context.PollGebruikers.Include(p => p.Poll).Include(p => p.Gebruiker).FirstOrDefault(k => k.GebruikerId == gebruikerId);
-
-            if (pollGebruiker == null)
-            {
-                return NotFound();
-            }
-
-            return pollGebruiker;
-        }
-        */
         // PUT: api/PollGebruiker/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPollGebruiker(long id, PollGebruiker pollGebruiker)

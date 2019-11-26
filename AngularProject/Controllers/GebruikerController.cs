@@ -62,6 +62,7 @@ namespace AngularProject.Controllers
         }
 
         // GET: api/Gebruiker/5
+        // Haalt een gebruiker met Email == email op, indien deze niet bestaat wordt er een gebruiker met een tijdelijk wachtwoord aangemaakt
         [Authorize]
         [HttpGet]
         [Route("getByEmail/{email}")]

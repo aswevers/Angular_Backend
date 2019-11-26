@@ -35,6 +35,7 @@ namespace AngularProject.Controllers
         }
 
         // GET: api/Gebruiker
+        // Haalt vriendrelaties op waar de gebruiker met gebruikerId = id deel van uitmaakt.
         [Authorize]
         [HttpGet]
         [Route("getVriendenWhereGebruikerId/{id}")]
@@ -44,6 +45,9 @@ namespace AngularProject.Controllers
                 .Include(v => v.Gebruiker2)
                 .Where(g => g.Gebruiker1.GebruikerId == id || g.Gebruiker2.GebruikerId == id).Where(g => g.Geaccepteerd == true).ToListAsync();
         }
+
+        // GET: api/Gebruiker
+        //Haalt vriendrelaties op waar gebruiker met gebruikerId = id deel van uitmaakt en Geaccepteerd == false
 
         [Authorize]
         [HttpGet]
@@ -115,6 +119,8 @@ namespace AngularProject.Controllers
             return CreatedAtAction("GetVriend", new { id = vriend.Id }, vriend);
         }
 
+        // Maakt vriendrelatie met Geaccepteerd == false
+        [Authorize]
         [HttpPost]
         [Route("sendRequest")]
         public async Task<ActionResult<Vriend>> SendRequest()
@@ -150,6 +156,8 @@ namespace AngularProject.Controllers
             return _context.Vrienden.Any(e => e.Id == id);
         }
 
+        //Verzend email
+        [Authorize]
         [HttpGet]
         [Route("sendMail/{email}")]
         public void SendMail(string email)

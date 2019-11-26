@@ -43,6 +43,9 @@ namespace AngularProject.Controllers
 
             return keuze;
         }
+
+        // Haalt alle keuzes op waar pollId = pollId
+        [Authorize]
         [HttpGet]
         [Route("getKeuzesByPollId/{pollId}")]
         public async Task<ActionResult<IEnumerable<Keuze>>> GetKeuzesByPollId(long pollId)
